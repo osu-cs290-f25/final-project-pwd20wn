@@ -1,8 +1,5 @@
 # Deal Finder
 
-Feel free to change anything, most of the files not related to fetching the data are just placeholders.
-
-This is a possible backend setup for our r app. It grabs deals from Reddit and saves them to a JSON file. Had copilot generate some instructions on how to interact with what I'm adding. Also some suggestions about our git strategy. This might be more of a headache than its work but I'm adding some .eslint and .prettierrc files to keep our formatting consistent. 
 
 **Current Status:**
 This PR sets up the server structure and data fetching. The views aren't ready yet, so the server just returns JSON data for now so we can see what we're working with.

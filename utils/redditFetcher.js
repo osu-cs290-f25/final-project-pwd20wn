@@ -1,14 +1,14 @@
-const path = require("path");
-const { writeData } = require("./fileOps");
+const path = require('path');
+const { writeData } = require('./fileOps');
 const {
   extractPrice,
   extractSavings,
   calculateOriginalPrice,
   determineCategory,
   getPhotoUrl,
-} = require("./formatters");
+} = require('./formatters');
 
-const OUTPUT_FILE = path.join(__dirname, "../data/deals.json");
+const OUTPUT_FILE = path.join(__dirname, '../data/deals.json');
 
 async function fetchDeals(limit = 25) {
   const REDDIT_URL = `https://www.reddit.com/r/deals/new.json?limit=${limit}`;
@@ -17,7 +17,7 @@ async function fetchDeals(limit = 25) {
   try {
     const response = await fetch(REDDIT_URL, {
       headers: {
-        "User-Agent": "DealFinder/1.0 (Educational Project)",
+        'User-Agent': 'DealFinder/1.0 (Educational Project)',
       },
     });
 
@@ -34,7 +34,7 @@ async function fetchDeals(limit = 25) {
       const p = post.data;
       const price = extractPrice(p.title);
       const savings =
-        extractSavings(p.title) || extractSavings(p.selftext || "");
+        extractSavings(p.title) || extractSavings(p.selftext || '');
       const originalPrice = calculateOriginalPrice(price, savings);
 
       return {
@@ -46,14 +46,14 @@ async function fetchDeals(limit = 25) {
         photoUrl: getPhotoUrl(p.thumbnail),
         category: determineCategory(p),
         externalUrl: p.url,
-        description: p.selftext || "No description.",
+        description: p.selftext || 'No description.',
       };
     });
 
     await writeData(OUTPUT_FILE, deals);
     console.log(`Successfully wrote ${deals.length} deals to ${OUTPUT_FILE}`);
   } catch (error) {
-    console.error("Error fetching deals:", error);
+    console.error('Error fetching deals:', error);
   }
 }
 

@@ -1,27 +1,27 @@
-const express = require("express");
-const morgan = require("morgan");
-const path = require("path");
-const { readData, writeData } = require("./utils/fileOps");
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+const { readData, writeData } = require('./utils/fileOps');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // morgan is just for logging http requests, like the logger from class code
-app.use(morgan("dev"));
-app.use(express.static("static"));
+app.use(morgan('dev'));
+app.use(express.static('static'));
 app.use(express.json());
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-const DEALS_FILE = path.join(__dirname, "data/deals.json");
-const WATCHLIST_FILE = path.join(__dirname, "data/watchlist.json");
+const DEALS_FILE = path.join(__dirname, 'data/deals.json');
+const WATCHLIST_FILE = path.join(__dirname, 'data/watchlist.json');
 
-app.get("/", async (req, res, next) => {
+app.get('/', async (req, res, next) => {
   try {
     const deals = await readData(DEALS_FILE);
     res.json({
-      message: "index page data",
+      message: 'index page data',
       deals: deals,
     });
   } catch (err) {
@@ -29,7 +29,7 @@ app.get("/", async (req, res, next) => {
   }
 });
 
-app.get("/deals/:id", async (req, res, next) => {
+app.get('/deals/:id', async (req, res, next) => {
   try {
     const deals = await readData(DEALS_FILE);
     const dealId = req.params.id;
@@ -37,7 +37,7 @@ app.get("/deals/:id", async (req, res, next) => {
 
     if (deal) {
       res.json({
-        message: "details page data",
+        message: 'details page data',
         deal: deal,
       });
     } else {
@@ -48,11 +48,11 @@ app.get("/deals/:id", async (req, res, next) => {
   }
 });
 
-app.get("/watchlist", async (req, res, next) => {
+app.get('/watchlist', async (req, res, next) => {
   try {
     const watchlist = await readData(WATCHLIST_FILE);
     res.json({
-      message: "watchlist page data",
+      message: 'watchlist page data',
       watchlist: watchlist,
     });
   } catch (err) {
@@ -60,12 +60,12 @@ app.get("/watchlist", async (req, res, next) => {
   }
 });
 
-app.post("/api/watchlist", async (req, res, next) => {
+app.post('/api/watchlist', async (req, res, next) => {
   try {
     const newDeal = req.body;
 
     if (!newDeal || !newDeal.id) {
-      return res.status(400).json({ error: "Invalid deal data" });
+      return res.status(400).json({ error: 'Invalid deal data' });
     }
 
     const watchlist = await readData(WATCHLIST_FILE);
@@ -74,16 +74,16 @@ app.post("/api/watchlist", async (req, res, next) => {
     if (!exists) {
       watchlist.push(newDeal);
       await writeData(WATCHLIST_FILE, watchlist);
-      res.status(201).json({ message: "Added to watchlist" });
+      res.status(201).json({ message: 'Added to watchlist' });
     } else {
-      res.status(200).json({ message: "Item already in watchlist" });
+      res.status(200).json({ message: 'Item already in watchlist' });
     }
   } catch (err) {
     next(err);
   }
 });
 
-app.delete("/api/watchlist/:id", async (req, res, next) => {
+app.delete('/api/watchlist/:id', async (req, res, next) => {
   try {
     const dealId = req.params.id;
     let watchlist = await readData(WATCHLIST_FILE);
@@ -93,9 +93,9 @@ app.delete("/api/watchlist/:id", async (req, res, next) => {
 
     if (watchlist.length < initialLength) {
       await writeData(WATCHLIST_FILE, watchlist);
-      res.json({ message: "Removed from watchlist" });
+      res.json({ message: 'Removed from watchlist' });
     } else {
-      res.status(404).json({ error: "Item not found in watchlist" });
+      res.status(404).json({ error: 'Item not found in watchlist' });
     }
   } catch (err) {
     next(err);
@@ -104,14 +104,14 @@ app.delete("/api/watchlist/:id", async (req, res, next) => {
 
 // 404 Handler
 app.use((req, res) => {
-  res.status(404).json({ error: "Page not found" });
+  res.status(404).json({ error: 'Page not found' });
 });
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
-  console.error("== Error caught in middleware:", err);
+  console.error('== Error caught in middleware:', err);
   res.status(500).json({
-    error: "Server error",
+    error: 'Server error',
   });
 });
 
