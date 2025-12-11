@@ -2,6 +2,8 @@ const path = require("path");
 const { writeData } = require("./fileOps");
 const {
   extractPrice,
+  extractSavings,
+  calculateOriginalPrice,
   determineCategory,
   getPhotoUrl,
 } = require("./formatters");
@@ -30,11 +32,17 @@ async function fetchDeals(limit = 25) {
 
     const deals = posts.map((post, index) => {
       const p = post.data;
+      const price = extractPrice(p.title);
+      const savings =
+        extractSavings(p.title) || extractSavings(p.selftext || "");
+      const originalPrice = calculateOriginalPrice(price, savings);
 
       return {
         id: index.toString(),
         title: p.title,
-        price: extractPrice(p.title),
+        price: price,
+        originalPrice: originalPrice,
+        savings: savings ? `${savings}%` : null,
         photoUrl: getPhotoUrl(p.thumbnail),
         category: determineCategory(p),
         externalUrl: p.url,
@@ -42,7 +50,7 @@ async function fetchDeals(limit = 25) {
       };
     });
 
-    writeData(OUTPUT_FILE, deals);
+    await writeData(OUTPUT_FILE, deals);
     console.log(`Successfully wrote ${deals.length} deals to ${OUTPUT_FILE}`);
   } catch (error) {
     console.error("Error fetching deals:", error);
