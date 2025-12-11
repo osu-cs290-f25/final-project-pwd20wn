@@ -66,3 +66,42 @@
   border: 3px dashed #aaa;
   border-radius: 10px;
 }
+
+/* --- Dark Mode Overrides (for JS Toggle) --- */
+
+/* Base Styles: Applies to the entire page */
+.dark-mode {
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light text */
+}
+
+/* Header Overrides */
+.dark-mode .header {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Logo Overrides */
+.dark-mode .logo {
+  background: #007bff; /* Use a bright color */
+  color: white;
+}
+
+/* Input/Select Field Overrides */
+.dark-mode .search-bar, 
+.dark-mode .nav-select {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+}
+
+/* Button Overrides */
+.dark-mode .nav-btn {
+  background: #333;
+  color: #e0e0e0;
+}
+
+/* Deals Area Overrides (if needed) */
+.dark-mode .deals {
+  border: 3px dashed #555;
+}
