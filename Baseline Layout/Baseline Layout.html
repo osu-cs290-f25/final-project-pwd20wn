@@ -23,14 +23,28 @@
 
     <select class="nav-select" id="store-filter">
       <option value="">Stores</option>
+      <option value="Amazon">Amazon</option>
+      <option value="Costco">Costco</option>
+      <option value="BestBuy">Best Buy</option>
+      <option value="Target">Target</option>
+      <option value="Walmart">Walmart</option>
     </select>
 
     <select class="nav-select" id="type-filter">
-      <option value="">Types</option>
+      <option value="">Category</option>
+      <option value="Apparel">Apparel</option>
+      <option value="Automotive">Automotive</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Gaming">Gaming</option>
+      <option value="HomeGoods">Home Goods</option>
     </select>
 
     <select class="nav-select" id="rating-filter">
       <option value="">Deal Rating</option>
+      <option value="5">5 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="2">2 Stars</option>
     </select>
 
     <select class="nav-select" id="price-filter">
@@ -39,6 +53,12 @@
       <option value="50">Under $50</option>
       <option value="100">Under $100</option>
       <option value="101">Over $100</option>
+    </select>
+
+    <select class="nav-select" id="sort-order">
+      <option value="dealScore">Sort by: Deal Score</option>
+      <option value="price">Sort by: Price</option>
+      <option value="endingSoon">Sort by: Ending Soon</option>
     </select>
   </div>
 
@@ -55,6 +75,18 @@
   <main class="deals">
     
   </main>
+
+  <script>
+    const DEALS_DATA = [
+        { id: '1', title: '50% off Sony Headphones', price: '$150.00', category: 'Electronics', photoUrl: 'https://via.placeholder.com/300x200?text=Headphones', externalUrl: '#' },
+        { id: '2', title: 'Daily Lunch Deal', price: '$9.99', category: 'Food', photoUrl: 'https://via.placeholder.com/300x200?text=Lunch', externalUrl: '#' },
+        { id: '3', title: 'Cheap Gadget Sale', price: '$19.99', category: 'Electronics', photoUrl: 'https://via.placeholder.com/300x200?text=Gadget', externalUrl: '#' },
+        { id: '4', title: 'Gaming PC Discount', price: '$1,200.00', category: 'Gaming', photoUrl: 'https://via.placeholder.com/300x200?text=PC', externalUrl: '#' },
+        { id: '5', title: 'Book Bundle Offer', price: '$35.00', category: 'Books', photoUrl: 'https://via.placeholder.com/300x200?text=Books', externalUrl: '#' }
+    ];
+  </script>
+
+  <script src="../static/index.js" defer></script>
 
 </body>
 </html>
