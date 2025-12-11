@@ -1,6 +1,6 @@
 function extractPrice(title) {
   const priceMatch = title.match(/\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/); //thanks gemini
-  return priceMatch ? priceMatch[0] : 'Price not listed';
+  return priceMatch ? priceMatch[0] : null;
 }
 
 function extractSavings(text) {
