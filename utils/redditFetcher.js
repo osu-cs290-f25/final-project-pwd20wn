@@ -6,6 +6,8 @@ const {
   calculateOriginalPrice,
   determineCategory,
   getPhotoUrl,
+  calculateDealScore,
+  calculateStarRating,
 } = require('./formatters');
 
 const OUTPUT_FILE = path.join(__dirname, '../data/deals.json');
@@ -65,18 +67,20 @@ async function fetchDeals(limit = 25) {
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7);
 
-      const dealScore = 1000; // placeholder
+      const dealScore = calculateDealScore(savings);
+      const dealRating = calculateStarRating(p, dealScore);
 
       return {
         id: index.toString(),
         title: p.title,
         photoUrl: getPhotoUrl(p),
-        price: price || 'Price not listed',
+        price: price || 'Not listed',
         originalPrice: originalPrice,
         externalUrl: p.url,
         store: store || 'Unknown',
         category: determineCategory(p) || 'Misc',
         dealScore: dealScore,
+        dealRating: dealRating,
         unitPrice: null, // not sure what this is yet
         percentOff: savings ? `${savings}%` : null,
         expiresAt: expiresAt.toISOString(),
