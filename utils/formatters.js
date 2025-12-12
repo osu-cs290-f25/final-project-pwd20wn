@@ -31,11 +31,30 @@ function getPhotoUrl(post) {
     return post.preview.images[0].source.url.replace(/&amp;/g, '&');
   }
 
-  if (post.thumbnail) {
+  if (post.thumbnail && post.thumbnail.startsWith('http')) {
     return post.thumbnail.replace(/&amp;/g, '&');
   }
 
   return 'https://placehold.co/300x200?text=No+Image';
+}
+
+function calculateDealScore(savings) {
+  if (!savings) return 10; // base score...
+  return parseInt(savings) * 100;
+}
+
+function calculateStarRating(post, dealScore) {
+  const ups = post.ups || 0;
+  const comments = post.num_comments || 0;
+
+  // using what we can... mix comments, updvotes and score
+  const totalScore = ups * 3 + comments * 1 + dealScore;
+
+  if (totalScore > 150) return 5;
+  if (totalScore > 100) return 4;
+  if (totalScore > 50) return 3;
+  if (totalScore > 20) return 2;
+  return 1;
 }
 
 module.exports = {
@@ -44,4 +63,6 @@ module.exports = {
   calculateOriginalPrice,
   determineCategory,
   getPhotoUrl,
+  calculateDealScore,
+  calculateStarRating,
 };
