@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "id": "deal1",
+    "title": "Black Hoodie",
+    "price": 19.99,
+    "originalPrice": 34.99,
+    "store": "Costco",
+    "category": "Apparel",
+    "rating": 4.5,
+    "dealScore": 99,
+    "timeLeft": "4:43:32",
+    "stock": "In stock",
+    "image": "https://via.placeholder.com/400x300?text=Black+Hoodie"
+  },
+  {
+    "id": "deal2",
+    "title": "iPad Air M5",
+    "price": 599.99,
+    "originalPrice": 799.99,
+    "store": "Target",
+    "category": "Electronics",
+    "rating": 4.8,
+    "dealScore": 95,
+    "timeLeft": "22h",
+    "stock": "In stock",
+    "image": "https://via.placeholder.com/400x300?text=iPad+Air"
+  },
+  {
+    "id": "deal3",
+    "title": "USB-C Hub",
+    "price": 24.00,
+    "originalPrice": 39.00,
+    "store": "Amazon",
+    "category": "Electronics",
+    "rating": 4.2,
+    "dealScore": 92,
+    "timeLeft": "12h",
+    "stock": "In stock",
+    "image": "https://via.placeholder.com/400x300?text=USB+Hub"
+  },
+  {
+    "id": "deal4",
+    "title": "Gaming Mouse",
+    "price": 45.99,
+    "originalPrice": 79.99,
+    "store": "BestBuy",
+    "category": "Gaming",
+    "rating": 4.6,
+    "dealScore": 88,
+    "timeLeft": "5h",
+    "stock": "Low stock",
+    "image": "https://via.placeholder.com/400x300?text=Gaming+Mouse"
+  },
+  {
+    "id": "deal5",
+    "title": "Car Phone Holder",
+    "price": 12.99,
+    "originalPrice": 24.99,
+    "store": "Walmart",
+    "category": "Automotive",
+    "rating": 4.0,
+    "dealScore": 85,
+    "timeLeft": "8h",
+    "stock": "In stock",
+    "image": "https://via.placeholder.com/400x300?text=Phone+Holder"
+  },
+  {
+    "id": "deal6",
+    "title": "Coffee Maker",
+    "price": 89.99,
+    "originalPrice": 129.99,
+    "store": "Target",
+    "category": "HomeGoods",
+    "rating": 4.3,
+    "dealScore": 90,
+    "timeLeft": "15h",
+    "stock": "In stock",
+    "image": "https://via.placeholder.com/400x300?text=Coffee+Maker"
+  }
+]

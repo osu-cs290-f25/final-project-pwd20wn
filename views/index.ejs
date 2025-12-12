@@ -1,4 +1,85 @@
-<!-- TODO: Implement the home page grid view here -->
-<!-- Iterate over the 'deals' array and display them -->
-<h1>Deal Finder</h1>
-<p>This is the home page. Implement your grid here.</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= pageTitle %> - Team43</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="top-left"><div class="logo">DealFinder</div></div>
+    
+    <%- include('partials/filters') %> 
+    
+    <div class="top-right">
+      <a href="/watchlist" class="nav-btn">Watchlist</a>
+      <button class="light-mode-toggle">🌙</button>
+    </div>
+  </header>
+
+  <main class="deals grid">
+    <section class="card">
+      <button class="icon fav" aria-label="Add to watchlist">♡</button>
+      <div class="thumb">
+        <img src="https://via.placeholder.com/400x300?text=Placeholder+1" alt="Black Hoodie" />
+        <span class="status">In stock</span>
+      </div>
+      <h3 class="title">Black Hoodie</h3>
+      <div class="meta">Costco • Hoodie</div>
+      <div class="price"><b>$19.99</b> <span class="strike">$34.99</span></div>
+      <div class="badges">
+        <span class="pill score">Score 99</span>
+        <span class="pill star">★★★★★ 4.5</span>
+        <span class="pill">⏳ 4:43:32</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#">View Deal</a>
+        <button class="btn">Add to Watchlist</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <button class="icon fav" aria-label="Add to watchlist">♡</button>
+      <div class="thumb">
+        <img src="https://via.placeholder.com/400x300?text=Placeholder+2" alt="USB-C Hub" />
+        <span class="status">In stock</span>
+      </div>
+      <h3 class="title">iPad Air M5</h3>
+      <div class="meta">Target • Electronics</div>
+      <div class="price"><b>$24.00</b> <span class="strike">$39.00</span></div>
+      <div class="badges">
+        <span class="pill score">Score 92</span>
+        <span class="pill star">★★★★☆ 4.2</span>
+        <span class="pill">⏳ 22h</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#">View Deal</a>
+        <button class="btn">Add to Watchlist</button>
+      </div>
+    </section>
+    
+    </main>
+
+  <script>
+    // Define the DEALS_DATA global variable using the server-side 'deals' array
+    // This makes the data available to index.js for client-side filtering.
+    const DEALS_DATA = <%- JSON.stringify(deals) %>;
+    
+    // Watchlist toggle (Keep this client-side code)
+    document.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('fav')) e.target.classList.toggle('active');
+    });
+  </script>
+  
+  <script src="/index.js" defer></script>
+  
+  <%- include('partials/footer') %>
+
+</body>
+</html>
