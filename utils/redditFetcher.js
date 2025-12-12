@@ -9,6 +9,22 @@ const {
 } = require('./formatters');
 
 const OUTPUT_FILE = path.join(__dirname, '../data/deals.json');
+const FILTERS_FILE = path.join(__dirname, '../data/filters.json');
+
+function extractUniqueValues(deals) {
+  const stores = new Set();
+  const categories = new Set();
+
+  deals.forEach((deal) => {
+    if (deal.store) stores.add(deal.store);
+    if (deal.category) categories.add(deal.category);
+  });
+
+  return {
+    stores: Array.from(stores).sort(),
+    categories: Array.from(categories).sort(),
+  };
+}
 
 async function fetchDeals(limit = 25) {
   const REDDIT_URL = `https://www.reddit.com/r/deals/new.json?limit=${limit}`;
@@ -58,7 +74,7 @@ async function fetchDeals(limit = 25) {
         price: price || 'Price not listed',
         originalPrice: originalPrice,
         externalUrl: p.url,
-        store: store || 'Various',
+        store: store || 'Unknown',
         category: determineCategory(p) || 'Misc',
         dealScore: dealScore,
         unitPrice: null, // not sure what this is yet
@@ -70,6 +86,10 @@ async function fetchDeals(limit = 25) {
 
     await writeData(OUTPUT_FILE, deals);
     console.log(`Successfully wrote ${deals.length} deals to ${OUTPUT_FILE}`);
+
+    const filters = extractUniqueValues(deals);
+    await writeData(FILTERS_FILE, filters);
+    console.log(`Successfully wrote filters to ${FILTERS_FILE}`);
   } catch (error) {
     console.error('Error fetching deals:', error);
   }
