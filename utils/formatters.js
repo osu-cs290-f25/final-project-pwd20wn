@@ -21,12 +21,12 @@ function calculateOriginalPrice(priceStr, savingsStr) {
   return '$' + originalPrice.toFixed(2);
 }
 
-function determineCategory(postData) {
-  return postData.link_flair_text || 'General';
+function determineCategory({ link_flair_text}) {
+   return link_flair_text || null
 }
 
 function getPhotoUrl(thumbnail) {
-  return thumbnail || 'https://picsum.photos/200';
+  return thumbnail || null;
 }
 
 module.exports = {

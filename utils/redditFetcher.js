@@ -33,19 +33,37 @@ async function fetchDeals(limit = 25) {
     const deals = posts.map((post, index) => {
       const p = post.data;
       const price = extractPrice(p.title);
+      // shows up in either title or selftext
       const savings =
         extractSavings(p.title) || extractSavings(p.selftext || '');
       const originalPrice = calculateOriginalPrice(price, savings);
 
+      // No store property so infer from url
+      let store = null;
+      if (p.domain) {
+        store = p.domain.replace(/^www\./, '').split('.')[0];
+        store = store.charAt(0).toUpperCase() + store.slice(1);
+      }
+
+      // not something we can easily get from reddit posts, so just +7 day placehodler for now
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7);
+
+      const dealScore = 1000; // placeholder
+
       return {
         id: index.toString(),
         title: p.title,
-        price: price,
-        originalPrice: originalPrice,
-        savings: savings ? `${savings}%` : null,
         photoUrl: getPhotoUrl(p.thumbnail),
-        category: determineCategory(p),
+        price: price || 'Price not listed',
+        originalPrice: originalPrice,
         externalUrl: p.url,
+        store: store || 'Various',
+        category: determineCategory(p) || 'Misc',
+        dealScore: dealScore,
+        unitPrice: null, // not sure what this is yet
+        percentOff: savings ? `${savings}%` : null,
+        expiresAt: expiresAt.toISOString(),
         description: p.selftext || 'No description.',
       };
     });
