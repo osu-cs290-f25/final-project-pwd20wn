@@ -15,14 +15,17 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const DEALS_FILE = path.join(__dirname, 'data/deals.json');
+const FILTERS_FILE = path.join(__dirname, 'data/filters.json');
 const WATCHLIST_FILE = path.join(__dirname, 'data/watchlist.json');
 
 app.get('/', async (req, res, next) => {
   try {
     const deals = await readData(DEALS_FILE);
+    const filters = await readData(FILTERS_FILE);
     res.json({
       message: 'index page data',
       deals: deals,
+      filters: filters,
     });
   } catch (err) {
     next(err);
