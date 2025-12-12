@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deal Finder – Home</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="top-left"><div class="logo">DealFinder</div></div>
+      <div class="top-middle">
+        <input class="search-bar" placeholder="Search deals" />
+        <select class="nav-select">
+          <option>Stores</option>
+        </select>
+        <select class="nav-select">
+          <option>Types</option>
+        </select>
+      </div>
+      <div class="top-right">
+        <a class="nav-btn" href="watchlist.html"
+          >Watchlist <span id="wl-count" class="badge">0</span></a
+        >
+      </div>
+    </header>
+
+    <main class="deals grid">
+      <!-- Card 1 -->
+      <section class="card">
+        <a class="thumb" href="details.html?id=hoodie-1">
+          <img
+            src="https://via.placeholder.com/640x480?text=Black+Hoodie"
+            alt="Black Hoodie"
+          />
+          <span class="status">In stock</span>
+        </a>
+        <h3 class="title">Black Hoodie</h3>
+        <div class="meta">Costco • Hoodie</div>
+        <div class="price">
+          <b>$19.99</b> <span class="strike">$34.99</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 99</span>
+          <span class="pill star">★★★★★ 4.5</span>
+          <span class="pill">⏳ 4:43:32</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="details.html?id=hoodie-1">View Deal</a>
+
+          <!-- ONE toggle button for watchlist -->
+          <button
+            class="btn"
+            data-watch
+            data-id="hoodie-1"
+            data-title="Black Hoodie"
+            data-store="Costco"
+            data-category="Hoodie"
+            data-price="19.99"
+            data-orig="34.99"
+            data-img="https://via.placeholder.com/640x480?text=Black+Hoodie"
+          >
+            Add to Watchlist
+          </button>
+        </div>
+      </section>
+
+      <!-- Card 2 (example) -->
+      <section class="card">
+        <a class="thumb" href="details.html?id=ipad-1">
+          <img
+            src="https://via.placeholder.com/640x480?text=iPad+Air"
+            alt="iPad Air"
+          />
+          <span class="status">In stock</span>
+        </a>
+        <h3 class="title">iPad Air</h3>
+        <div class="meta">Target • Tech</div>
+        <div class="price">
+          <b>$499.00</b> <span class="strike">$599.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="details.html?id=ipad-1">View Deal</a>
+          <button
+            class="btn"
+            data-watch
+            data-id="ipad-1"
+            data-title="iPad Air"
+            data-store="Target"
+            data-category="Tech"
+            data-price="499.00"
+            data-orig="599.00"
+            data-img="https://via.placeholder.com/640x480?text=iPad+Air"
+          >
+            Add to Watchlist
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
