@@ -22,7 +22,7 @@ function calculateOriginalPrice(priceStr, savingsStr) {
 }
 
 function determineCategory({ link_flair_text}) {
-   return link_flair_text || null
+   return link_flair_text ? link_flair_text.replace(/&amp;|&/g, 'and') : null;
 }
 
 function getPhotoUrl(thumbnail) {
