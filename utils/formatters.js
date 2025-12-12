@@ -21,8 +21,8 @@ function calculateOriginalPrice(priceStr, savingsStr) {
   return '$' + originalPrice.toFixed(2);
 }
 
-function determineCategory({ link_flair_text}) {
-   return link_flair_text ? link_flair_text.replace(/&amp;|&/g, 'and') : null;
+function determineCategory({ link_flair_text }) {
+  return link_flair_text ? link_flair_text.replace(/&amp;|&/g, 'and') : null;
 }
 
 function getPhotoUrl(post) {
@@ -38,10 +38,31 @@ function getPhotoUrl(post) {
   return 'https://placehold.co/300x200?text=No+Image';
 }
 
+function calculateDealScore(savings) {
+  if (!savings) return 10; // base score...
+  return (parseInt(savings) * 100)
+}
+
+function calculateStarRating(post, dealScore) {
+  const ups = post.ups || 0;
+  const comments = post.num_comments || 0;
+
+  // using what we can... mix comments, updvotes and score
+  const totalScore = ups * 3 + comments * 1 + dealScore;
+
+  if (totalScore > 150) return 5;
+  if (totalScore > 100) return 4;
+  if (totalScore > 50) return 3;
+  if (totalScore > 20) return 2;
+  return 1;
+}
+
 module.exports = {
   extractPrice,
   extractSavings,
   calculateOriginalPrice,
   determineCategory,
   getPhotoUrl,
+  calculateDealScore,
+  calculateStarRating,
 };
