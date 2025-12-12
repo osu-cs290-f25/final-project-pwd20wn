@@ -1,4 +1,21 @@
+
 <!-- TODO: Implement the watchlist view here -->
 <!-- Iterate over the 'watchlist' array and display them -->
-<h1>My Watchlist</h1>
-<p>This is the watchlist page. Implement your list here.</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Watchlist • DealFinder</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <% include ./partials/header %>
+
+    <main class="deals grid" id="watchlistGrid">
+      <!-- Filled by /static/index.js from localStorage -->
+    </main>
+
+    <% include ./partials/footer %>
+  </body>
+</html>
