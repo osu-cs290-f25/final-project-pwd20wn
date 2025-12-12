@@ -9,18 +9,36 @@ let body;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // A. Assign Element References *after* the DOM is ready
+    // Assign Element References *after* the DOM is ready
     toggleButton = document.querySelector('.light-mode-toggle');
     body = document.body;
 
-    // B. Dark Mode Toggle Implementation
+    // Check for Saved Preference on Load
+    const savedTheme = localStorage.getItem('theme');
+    
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+    }
+
+    // Set initial toggle state (Moon or Sun emoji)
+    if (toggleButton) {
+        // Set the text content based on the initial class presence
+        toggleButton.textContent = body.classList.contains('dark-mode') ? '💡' : '🌙';
+    }
+
+    // Dark Mode Toggle Implementation
     if (toggleButton) {
         toggleButton.addEventListener('click', () => {
-            // 1. Toggle the 'dark-mode' class on the body element
+            // Toggle the 'dark-mode' class on the body element
             body.classList.toggle('dark-mode');
-
-            // 2. Change the emoji text based on the current state
-            toggleButton.textContent = body.classList.contains('dark-mode') ? '🌙' : '💡';
+// Save or Remove the setting in localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                toggleButton.textContent = '💡';
+            } else {
+                localStorage.removeItem('theme'); // Clear the preference for light mode
+                toggleButton.textContent = '🌙';
+            }
         });
     }
     
