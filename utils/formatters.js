@@ -31,7 +31,7 @@ function getPhotoUrl(post) {
     return post.preview.images[0].source.url.replace(/&amp;/g, '&');
   }
 
-  if (post.thumbnail) {
+  if (post.thumbnail && post.thumbnail.startsWith('http')) {
     return post.thumbnail.replace(/&amp;/g, '&');
   }
 
