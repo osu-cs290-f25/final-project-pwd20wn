@@ -25,8 +25,17 @@ function determineCategory({ link_flair_text}) {
    return link_flair_text ? link_flair_text.replace(/&amp;|&/g, 'and') : null;
 }
 
-function getPhotoUrl(thumbnail) {
-  return thumbnail || null;
+function getPhotoUrl(post) {
+  // few size options. keeping it simple for the moment
+  if (post.preview && post.preview.images && post.preview.images.length > 0) {
+    return post.preview.images[0].source.url.replace(/&amp;/g, '&');
+  }
+
+  if (post.thumbnail) {
+    return post.thumbnail.replace(/&amp;/g, '&');
+  }
+
+  return 'https://placehold.co/300x200?text=No+Image';
 }
 
 module.exports = {
