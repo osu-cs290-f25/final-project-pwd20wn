@@ -1,0 +1,15 @@
+<!-- TODO: Implement the home page grid view here -->
+<!-- Iterate over the 'deals' array and display them -->
+<%- include('partials/header', { title: 'Deals', q, store }) %>
+
+<main class="deals grid">
+  <% if (!deals || deals.length === 0) { %>
+    <p style="padding:20px;color:var(--muted)">No deals found.</p>
+  <% } %>
+
+  <% (deals || []).forEach(d => { %>
+    <%- include('partials/deal-card', { d }) %>
+  <% }) %>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,50 @@
+<!-- TODO: Implement the single deal details view here -->
+<!-- Use the 'deal' object to display details -->
+<%- include('partials/header', { title: (deal && deal.title) || 'Deal' }) %>
+
+<main class="page">
+  <% if (!deal) { %>
+    <p style="padding:20px">Deal not found.</p>
+  <% } else { %>
+    <section class="detail-card">
+      <div class="detail-grid">
+        <div class="detail-media">
+          <div class="detail-img">
+            <img
+              src="<%= deal.img || 'https://via.placeholder.com/800x500?text=Deal' %>"
+              alt="<%= deal.title %>"
+              style="width:100%;height:auto;border-radius:12px"
+            />
+          </div>
+        </div>
+
+        <div class="detail-info">
+          <h1 class="detail-title"><%= deal.title %></h1>
+          <div class="meta"><%= deal.store %> • <%= deal.category %></div>
+
+          <div class="detail-price">
+            <b>$<%= Number(deal.price).toFixed(2) %></b>
+            <% if (deal.origPrice && deal.origPrice > deal.price) { %>
+              <span class="strike">$<%= Number(deal.origPrice).toFixed(2) %></span>
+            <% } %>
+          </div>
+
+          <div class="detail-pills">
+            <span class="pill soft">Score <%= deal.score || 0 %></span>
+            <span class="pill">$ / unit: <%= Number(deal.unit || deal.price).toFixed(2) %></span>
+            <span class="pill outline">⏳ Ends soon</span>
+          </div>
+
+          <p class="detail-desc"><%= deal.desc || '' %></p>
+
+          <div class="actions">
+            <a class="btn primary" href="#">Buy</a>
+            <button class="btn add-watch" data-id="<%= deal.id %>">Add to Watchlist</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% } %>
+</main>
+
+<%- include('partials/footer') %>
