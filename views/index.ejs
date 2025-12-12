@@ -1,4 +1,43 @@
-<!-- TODO: Implement the home page grid view here -->
-<!-- Iterate over the 'deals' array and display them -->
-<h1>Deal Finder</h1>
-<p>This is the home page. Implement your grid here.</p>
+<%- include('partials/header') %>
+
+<main class="deals grid">
+  <% deals.forEach(d => { %>
+    <section class="card">
+      <button class="icon fav" data-heart aria-label="Toggle favorite">♡</button>
+      <div class="thumb">
+        <img src="<%= d.img || 'https://placehold.co/600x400?text=Deal' %>" alt="<%= d.title %>"/>
+        <% if (d.inStock) { %><span class="status">In stock</span><% } %>
+      </div>
+
+      <h3 class="title"><%= d.title %></h3>
+      <div class="meta"><%= d.store %> • <%= d.category || '' %></div>
+      <div class="price">
+        <b><%= d.price ? '$' + d.price : '—' %></b>
+        <% if (d.orig) { %><span class="strike">$<%= d.orig %></span><% } %>
+      </div>
+
+      <div class="badges">
+        <% if (d.score) { %><span class="pill score">Score <%= d.score %></span><% } %>
+        <% if (d.rating) { %><span class="pill star">★ <%= d.rating %></span><% } %>
+        <% if (d.endsIn) { %><span class="pill">⏳ <%= d.endsIn %></span><% } %>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="/deals/<%= d.id %>">View Deal</a>
+        <button class="btn"
+          data-add
+          data-id="<%= d.id %>"
+          data-title="<%= d.title %>"
+          data-store="<%= d.store %>"
+          data-category="<%= d.category || '' %>"
+          data-price="<%= d.price || '' %>"
+          data-orig="<%= d.orig || '' %>"
+          data-img="<%= d.img || '' %>">
+          Add to Watchlist
+        </button>
+      </div>
+    </section>
+  <% }) %>
+</main>
+
+<%- include('partials/footer') %>

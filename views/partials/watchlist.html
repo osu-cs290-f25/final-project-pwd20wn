@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deal Finder – Watchlist</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../static/style.css" />
+  </head>
+  <body id="watchlist">
+    <header class="header">
+      <div class="top-left">
+        <a href="index.html" class="logo">DealFinder</a>
+      </div>
+      <div class="top-right">
+        <a class="nav-btn" href="watchlist.html"
+          >Watchlist <span id="wl-count" class="badge">0</span></a
+        >
+      </div>
+    </header>
+
+    <main class="deals">
+      <h2 style="margin: 16px 20px 8px">Your Watchlist</h2>
+      <section class="grid" id="wl-grid"></section>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+      // Render saved items from localStorage
+      const grid = document.getElementById('wl-grid');
+      const list = window.Watch ? window.Watch.read() : [];
+
+      function cardHTML(d) {
+        return `
+      <article class="card">
+        <a class="thumb" href="details.html?id=${d.id}">
+          <img src="${d.img}" alt="${d.title}" />
+          <span class="status">Saved</span>
+        </a>
+        <h3 class="title">${d.title}</h3>
+        <div class="meta">${d.store} • ${d.category}</div>
+        <div class="price"><b>$${Number(d.price).toFixed(
+          2
+        )}</b> <span class="strike">$${Number(d.orig).toFixed(2)}</span></div>
+        <div class="actions">
+          <a class="btn primary" href="details.html?id=${d.id}">View Deal</a>
+          <button class="btn"
+            data-watch
+            data-id="${d.id}"
+            data-title="${d.title}"
+            data-store="${d.store}"
+            data-category="${d.category}"
+            data-price="${d.price}"
+            data-orig="${d.orig}"
+            data-img="${d.img}">
+            Remove
+          </button>
+        </div>
+      </article>`;
+      }
+
+      if (!list.length) {
+        grid.innerHTML = '<p style="padding:20px">Your watchlist is empty.</p>';
+      } else {
+        grid.innerHTML = list.map(cardHTML).join('');
+      }
+
+      if (window.hydrateButtons) window.hydrateButtons();
+      if (window.updateBadge) window.updateBadge();
+    </script>
+  </body>
+</html>

@@ -1,22 +1,10 @@
 const fs = require('fs/promises');
 
-async function readData(filePath) {
-  try {
-    const data = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
-  }
+async function readJson(p) {
+  const txt = await fs.readFile(p, 'utf-8');
+  return JSON.parse(txt);
 }
-
-async function writeData(filePath, data) {
-  try {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
-    return true;
-  } catch (err) {
-    console.error(`Error writing to ${filePath}:`, err.message);
-    return false;
-  }
+async function writeJson(p, data) {
+  await fs.writeFile(p, JSON.stringify(data, null, 2));
 }
-
-module.exports = { readData, writeData };
+module.exports = { readJson, writeJson };

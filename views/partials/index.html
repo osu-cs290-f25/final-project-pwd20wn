@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deal Finder – Home</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../static/style.css" />
+  </head>
+  <body>
+    <!-- Header Area -->
+    <header class="header">
+      <!-- Left: Logo -->
+      <div class="top-left">
+        <div class="logo">Deal Finder</div>
+      </div>
+
+      <!-- Middle: Filters -->
+      <div class="top-middle">
+        <input class="search-bar" type="text" placeholder="Search deals..." />
+
+        <select class="nav-select" id="store-filter">
+          <option value="">Stores</option>
+          <option value="Amazon">Amazon</option>
+          <option value="Costco">Costco</option>
+          <option value="BestBuy">Best Buy</option>
+          <option value="Target">Target</option>
+          <option value="Walmart">Walmart</option>
+        </select>
+
+        <select class="nav-select" id="type-filter">
+          <option value="">Category</option>
+          <option value="Apparel">Apparel</option>
+          <option value="Automotive">Automotive</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Gaming">Gaming</option>
+          <option value="HomeGoods">Home Goods</option>
+        </select>
+
+        <select class="nav-select" id="rating-filter">
+          <option value="">Deal Rating</option>
+          <option value="5">5 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="3">3 Stars</option>
+          <option value="2">2 Stars</option>
+        </select>
+
+        <select class="nav-select" id="price-filter">
+          <option value="0">Price</option>
+          <option value="25">Under $25</option>
+          <option value="50">Under $50</option>
+          <option value="100">Under $100</option>
+          <option value="101">Over $100</option>
+        </select>
+
+        <select class="nav-select" id="sort-order">
+          <option value="dealScore">Sort by: Deal Score</option>
+          <option value="price">Sort by: Price</option>
+          <option value="endingSoon">Sort by: Ending Soon</option>
+        </select>
+      </div>
+
+      <!-- Right: Watchlist and Light Mode -->
+      <div class="top-right">
+        <div class="nav-btn">Watchlist</div>
+        <button class="light-mode-toggle">💡</button>
+      </div>
+    </header>
+
+    <!-- Deals Area -->
+    <main class="deals"></main>
+
+    <script>
+      const DEALS_DATA = [
+        {
+          id: '1',
+          title: '50% off Sony Headphones',
+          price: '$150.00',
+          category: 'Electronics',
+          photoUrl: 'https://via.placeholder.com/300x200?text=Headphones',
+          externalUrl: '#',
+        },
+        {
+          id: '2',
+          title: 'Daily Lunch Deal',
+          price: '$9.99',
+          category: 'Food',
+          photoUrl: 'https://via.placeholder.com/300x200?text=Lunch',
+          externalUrl: '#',
+        },
+        {
+          id: '3',
+          title: 'Cheap Gadget Sale',
+          price: '$19.99',
+          category: 'Electronics',
+          photoUrl: 'https://via.placeholder.com/300x200?text=Gadget',
+          externalUrl: '#',
+        },
+        {
+          id: '4',
+          title: 'Gaming PC Discount',
+          price: '$1,200.00',
+          category: 'Gaming',
+          photoUrl: 'https://via.placeholder.com/300x200?text=PC',
+          externalUrl: '#',
+        },
+        {
+          id: '5',
+          title: 'Book Bundle Offer',
+          price: '$35.00',
+          category: 'Books',
+          photoUrl: 'https://via.placeholder.com/300x200?text=Books',
+          externalUrl: '#',
+        },
+      ];
+    </script>
+
+    <script src="../static/index.js" defer></script>
+
+    <main class="deals grid">
+      <!-- Card 1 -->
+      <section class="card">
+        <a class="thumb" href="details.html?id=hoodie-1">
+          <img
+            src="https://via.placeholder.com/640x480?text=Black+Hoodie"
+            alt="Black Hoodie"
+          />
+          <span class="status">In stock</span>
+        </a>
+        <h3 class="title">Black Hoodie</h3>
+        <div class="meta">Costco • Hoodie</div>
+        <div class="price">
+          <b>$19.99</b> <span class="strike">$34.99</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 99</span>
+          <span class="pill star">★★★★★ 4.5</span>
+          <span class="pill">⏳ 4:43:32</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="details.html?id=hoodie-1">View Deal</a>
+
+          <!-- toggle button for watchlist -->
+          <button
+            class="btn"
+            data-watch
+            data-id="hoodie-1"
+            data-title="Black Hoodie"
+            data-store="Costco"
+            data-category="Hoodie"
+            data-price="19.99"
+            data-orig="34.99"
+            data-img="https://via.placeholder.com/640x480?text=Black+Hoodie"
+          >
+            Add to Watchlist
+          </button>
+        </div>
+      </section>
+
+      <!-- Card 2-->
+      <section class="card">
+        <a class="thumb" href="details.html?id=ipad-1">
+          <img
+            src="https://via.placeholder.com/640x480?text=iPad+Air"
+            alt="iPad Air"
+          />
+          <span class="status">In stock</span>
+        </a>
+        <h3 class="title">iPad Air</h3>
+        <div class="meta">Target • Tech</div>
+        <div class="price">
+          <b>$499.00</b> <span class="strike">$599.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="details.html?id=ipad-1">View Deal</a>
+          <button
+            class="btn"
+            data-watch
+            data-id="ipad-1"
+            data-title="iPad Air"
+            data-store="Target"
+            data-category="Tech"
+            data-price="499.00"
+            data-orig="599.00"
+            data-img="https://via.placeholder.com/640x480?text=iPad+Air"
+          >
+            Add to Watchlist
+          </button>
+        </div>
+      </section>
+    </main>
+    <header class="header">
+      <div class="top-left"><div class="logo">DealFinder</div></div>
+      <div class="top-middle">
+        <input class="search-bar" placeholder="Search deals" />
+        <select class="nav-select">
+          <option>Stores</option>
+        </select>
+        <select class="nav-select">
+          <option>Types</option>
+        </select>
+      </div>
+      <div class="top-right">
+        <button class="nav-btn">Watchlist</button>
+        <button class="light-mode-toggle">☀️</button>
+      </div>
+    </header>
+
+    <main class="deals grid">
+      <!-- Card 1 -->
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="none" alt="Black Hoodie" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">Black Hoodie</h3>
+        <div class="meta">Costco • Hoodie</div>
+        <div class="price">
+          <b>$19.99</b> <span class="strike">$34.99</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 99</span>
+          <span class="pill star">★★★★★ 4.5</span>
+          <span class="pill">⏳ 4:43:32</span>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <!-- card layout -->
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="none" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="none" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="noneb" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="noneb" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="noneb" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="none" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <button class="icon fav" aria-label="Add to watchlist">♡</button>
+        <div class="thumb">
+          <img src="none" alt="USB-C Hub" />
+          <span class="status">In stock</span>
+        </div>
+        <h3 class="title">ipad air m5</h3>
+        <div class="meta">Target • Accessories</div>
+        <div class="price">
+          <b>$24.00</b> <span class="strike">$39.00</span>
+        </div>
+        <div class="badges">
+          <span class="pill score">Score 92</span>
+          <span class="pill star">★★★★☆ 4.2</span>
+          <span class="pill">⏳ 22h</span>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="#">View Deal</a>
+          <button class="btn">Add to Watchlist</button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // watchlist toggle
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('fav'))
+          e.target.classList.toggle('active');
+      });
+    </script>
+
+    <script src="app.js"></script>
+  </body>
+</html>

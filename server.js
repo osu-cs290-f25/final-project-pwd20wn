@@ -1,120 +1,108 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const { readData, writeData } = require('./utils/fileOps');
+const { readJson } = require('./utils/fileOps');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// morgan is just for logging http requests, like the logger from class code
 app.use(morgan('dev'));
-app.use(express.static('static'));
 app.use(express.json());
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 const DEALS_FILE = path.join(__dirname, 'data/deals.json');
-const WATCHLIST_FILE = path.join(__dirname, 'data/watchlist.json');
 
+// Home: list all deals
 app.get('/', async (req, res, next) => {
   try {
-    const deals = await readData(DEALS_FILE);
-    res.json({
-      message: 'index page data',
-      deals: deals,
-    });
-  } catch (err) {
-    next(err);
+    const deals = await readJson(DEALS_FILE);
+    res.render('index', { deals });
+  } catch (e) {
+    next(e);
   }
 });
 
+// Details page: single deal
 app.get('/deals/:id', async (req, res, next) => {
   try {
-    const deals = await readData(DEALS_FILE);
-    const dealId = req.params.id;
-    const deal = deals.find((d) => d.id === dealId);
-
-    if (deal) {
-      res.json({
-        message: 'details page data',
-        deal: deal,
-      });
-    } else {
-      next(); // Pass to 404 handler
-    }
-  } catch (err) {
-    next(err);
+    const deals = await readJson(DEALS_FILE);
+    const deal = deals.find((d) => String(d.id) === String(req.params.id));
+    if (!deal) return res.status(404).render('details', { deal: null });
+    res.render('details', { deal });
+  } catch (e) {
+    next(e);
   }
 });
 
-app.get('/watchlist', async (req, res, next) => {
+// Watchlist page (client populates from localStorage)
+app.get('/watchlist', (req, res) => {
+  res.render('watchlist');
+});
+
+// Optional JSON endpoint (handy for debugging)
+app.get('/api/deals', async (req, res, next) => {
   try {
-    const watchlist = await readData(WATCHLIST_FILE);
-    res.json({
-      message: 'watchlist page data',
-      watchlist: watchlist,
-    });
-  } catch (err) {
-    next(err);
+    const deals = await readJson(DEALS_FILE);
+    res.json(deals);
+  } catch (e) {
+    next(e);
   }
 });
 
-app.post('/api/watchlist', async (req, res, next) => {
-  try {
-    const newDeal = req.body;
-
-    if (!newDeal || !newDeal.id) {
-      return res.status(400).json({ error: 'Invalid deal data' });
-    }
-
-    const watchlist = await readData(WATCHLIST_FILE);
-    const exists = watchlist.find((item) => item.id === newDeal.id);
-
-    if (!exists) {
-      watchlist.push(newDeal);
-      await writeData(WATCHLIST_FILE, watchlist);
-      res.status(201).json({ message: 'Added to watchlist' });
-    } else {
-      res.status(200).json({ message: 'Item already in watchlist' });
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
-app.delete('/api/watchlist/:id', async (req, res, next) => {
-  try {
-    const dealId = req.params.id;
-    let watchlist = await readData(WATCHLIST_FILE);
-    const initialLength = watchlist.length;
-
-    watchlist = watchlist.filter((item) => item.id !== dealId);
-
-    if (watchlist.length < initialLength) {
-      await writeData(WATCHLIST_FILE, watchlist);
-      res.json({ message: 'Removed from watchlist' });
-    } else {
-      res.status(404).json({ error: 'Item not found in watchlist' });
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
-// 404 Handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Page not found' });
-});
-
-// Error Handling Middleware
+// 404 + error
+app.use((req, res) => res.status(404).send('Not found'));
 app.use((err, req, res, next) => {
-  console.error('== Error caught in middleware:', err);
-  res.status(500).json({
-    error: 'Server error',
-  });
+  console.error(err);
+  res.status(500).send('Server error');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+
+// TODO: Add your client-side JavaScript here
+console.log('Client-side JS loaded');
+
+// --- 1. Element References ---
+let toggleButton;
+let body;
+
+// --- Event Listeners and Initial Setup ---
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Assign Element References *after* the DOM is ready
+  toggleButton = document.querySelector('.light-mode-toggle');
+  body = document.body;
+
+  // Check for Saved Preference on Load
+  const savedTheme = localStorage.getItem('theme');
+
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+  }
+
+  // Set initial toggle state (Moon or Sun emoji)
+  if (toggleButton) {
+    // Set the text content based on the initial class presence
+    toggleButton.textContent = body.classList.contains('dark-mode')
+      ? '💡'
+      : '🌙';
+  }
+
+  // Dark Mode Toggle Implementation
+  if (toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      // Toggle the 'dark-mode' class on the body element
+      body.classList.toggle('dark-mode');
+      // Save or Remove the setting in localStorage
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        toggleButton.textContent = '💡';
+      } else {
+        localStorage.removeItem('theme'); // Clear the preference for light mode
+        toggleButton.textContent = '🌙';
+      }
+    });
+  }
 });

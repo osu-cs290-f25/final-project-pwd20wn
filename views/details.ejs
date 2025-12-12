@@ -1,4 +1,60 @@
 <!-- TODO: Implement the single deal details view here -->
 <!-- Use the 'deal' object to display details -->
-<h1>Deal Details</h1>
-<p>This is the details page. Implement your deal view here.</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title><%= deal ? deal.title : 'Not found' %> • DealFinder</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <% include ./partials/header %>
+
+  <main class="page">
+    <% if (!deal) { %>
+      <p style="padding:20px">Deal not found.</p>
+    <% } else { 
+      const img = (deal.photoUrl && deal.photoUrl !== 'default') ? deal.photoUrl : 'https://placehold.co/1200x750?text=Deal';
+    %>
+      <article class="detail-card">
+        <div class="detail-grid">
+          <div class="detail-media">
+            <div class="detail-img"><img src="<%= img %>" alt="<%= deal.title %>" style="width:100%;border-radius:12px"></div>
+          </div>
+          <div>
+            <h1 class="detail-title"><%= deal.title %></h1>
+            <div class="detail-price">
+              <b><%= deal.price || '—' %></b>
+              <% if (deal.originalPrice) { %><span class="strike"><%= deal.originalPrice %></span><% } %>
+              <% if (deal.percentOff) { %><span class="pill outline"><%= deal.percentOff %> off</span><% } %>
+            </div>
+            <p class="meta"><%= deal.store %> • <%= deal.category %></p>
+            <p class="detail-desc"><%= deal.description || 'No description.' %></p>
+
+            <div class="detail-pills">
+              <% if (deal.dealScore) { %><span class="pill score">Score <%= deal.dealScore %></span><% } %>
+            </div>
+
+            <div class="actions">
+              <a class="btn primary" href="<%= deal.externalUrl || '#' %>" target="_blank" rel="noopener">Buy</a>
+              <button class="btn"
+                data-add
+                data-id="<%= deal.id %>"
+                data-title="<%- deal.title %>"
+                data-store="<%- deal.store %>"
+                data-category="<%- deal.category %>"
+                data-price="<%- (deal.price||'').replace(/[^0-9.]/g,'') %>"
+                data-orig="<%- (deal.originalPrice||'').replace(/[^0-9.]/g,'') %>"
+                data-img="<%- img %>"
+              >Add to Watchlist</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    <% } %>
+  </main>
+
+  <% include ./partials/footer %>
+</body>
+</html>
