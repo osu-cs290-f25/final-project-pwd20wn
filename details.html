@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deal Finder – Details</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../static/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="top-left">
+        <a href="index.html" class="logo">DealFinder</a>
+      </div>
+      <div class="top-right">
+        <a class="nav-btn" href="watchlist.html"
+          >Watchlist <span id="wl-count" class="badge">0</span></a
+        >
+      </div>
+    </header>
+
+    <main class="page">
+      <section class="detail-card">
+        <div class="detail-grid">
+          <div class="detail-media">
+            <div class="detail-img" id="detail-img">Loading…</div>
+          </div>
+          <div>
+            <h1 class="detail-title" id="detail-title">Loading…</h1>
+            <div class="meta" id="detail-meta">Store • Category</div>
+            <div class="detail-price">
+              <b id="detail-price">$0.00</b>
+              <span class="strike" id="detail-orig">$0.00</span>
+            </div>
+
+            <div class="detail-pills">
+              <span class="pill score">Score 90</span>
+              <span class="pill outline">⏳ Ends soon</span>
+            </div>
+
+            <p class="detail-desc">
+              Simple details page to test Add/Remove from watchlist.
+            </p>
+
+            <div class="actions">
+              <a class="btn primary" href="#" id="buy-link">Buy</a>
+              <button
+                class="btn"
+                id="watch-btn"
+                data-watch
+                data-id=""
+                data-title=""
+                data-store=""
+                data-category=""
+                data-price=""
+                data-orig=""
+                data-img=""
+              >
+                Add to Watchlist
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+      // Tiny demo dataset to populate details by id
+      const demo = {
+        'hoodie-1': {
+          id: 'hoodie-1',
+          title: 'Black Hoodie',
+          store: 'Costco',
+          category: 'Hoodie',
+          price: 19.99,
+          orig: 34.99,
+          img: 'https://via.placeholder.com/1200x750?text=Black+Hoodie',
+        },
+        'ipad-1': {
+          id: 'ipad-1',
+          title: 'iPad Air',
+          store: 'Target',
+          category: 'Tech',
+          price: 499.0,
+          orig: 599.0,
+          img: 'https://via.placeholder.com/1200x750?text=iPad+Air',
+        },
+      };
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id') || 'hoodie-1';
+      const item = demo[id];
+
+      if (item) {
+        document.getElementById('detail-img').innerHTML =
+          `<img style="width:100%;border-radius:12px" src="${item.img}" alt="${item.title}">`;
+        document.getElementById('detail-title').textContent = item.title;
+        document.getElementById('detail-meta').textContent =
+          `${item.store} • ${item.category}`;
+        document.getElementById('detail-price').textContent =
+          `$${item.price.toFixed(2)}`;
+        document.getElementById('detail-orig').textContent =
+          `$${item.orig.toFixed(2)}`;
+
+        const btn = document.getElementById('watch-btn');
+        btn.dataset.id = item.id;
+        btn.dataset.title = item.title;
+        btn.dataset.store = item.store;
+        btn.dataset.category = item.category;
+        btn.dataset.price = String(item.price);
+        btn.dataset.orig = String(item.orig);
+        btn.dataset.img = item.img;
+
+        // refresh the button state now that data-* is set
+        if (window.hydrateButtons) window.hydrateButtons();
+        if (window.updateBadge) window.updateBadge();
+      }
+    </script>
+  </body>
+</html>

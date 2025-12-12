@@ -1,0 +1,41 @@
+<!-- TODO: Implement a reusable deal card component here -->
+<%
+// simple helpers
+const img = (deal.photoUrl && deal.photoUrl !== 'default')
+  ? deal.photoUrl
+  : 'https://placehold.co/600x400?text=Deal';
+const price = deal.price || '—';
+const original = deal.originalPrice || '';
+const off = deal.percentOff ? `(${deal.percentOff} off)` : '';
+%>
+
+<section class="card">
+  <button class="icon fav" data-heart data-id="<%= deal.id %>" aria-label="Add to watchlist">♡</button>
+  <a class="thumb" href="/deals/<%= deal.id %>">
+    <img src="<%= img %>" alt="<%= deal.title %>"/>
+    <span class="status">In stock</span>
+  </a>
+  <h3 class="title"><a href="/deals/<%= deal.id %>"><%= deal.title %></a></h3>
+  <div class="meta"><%= deal.store %> • <%= deal.category %></div>
+  <div class="price">
+    <b><%= price %></b>
+    <% if (original) { %><span class="strike"><%= original %></span><% } %>
+    <span class="meta"><%= off %></span>
+  </div>
+  <div class="badges">
+    <% if (deal.dealScore) { %><span class="pill score">Score <%= deal.dealScore %></span><% } %>
+  </div>
+  <div class="actions">
+    <a class="btn primary" href="<%= deal.externalUrl || ('/deals/' + deal.id) %>" target="_blank" rel="noopener">View Deal</a>
+    <button class="btn"
+      data-add
+      data-id="<%= deal.id %>"
+      data-title="<%- deal.title %>"
+      data-store="<%- deal.store %>"
+      data-category="<%- deal.category %>"
+      data-price="<%- (price || '').replace(/[^0-9.]/g,'') %>"
+      data-orig="<%- (original || '').replace(/[^0-9.]/g,'') %>"
+      data-img="<%- img %>"
+    >Add to Watchlist</button>
+  </div>
+</section>
