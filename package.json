@@ -1,0 +1,27 @@
+{
+  "name": "final-project-pwd20wn",
+  "version": "1.0.0",
+  "description": "Deal Finder Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev-start": "nodemon server.js",
+    "fetch-deals": "node utils/redditFetcher.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "author": "Team Deal Finder",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.4"
+  }
+}
