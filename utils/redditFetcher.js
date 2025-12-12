@@ -54,7 +54,7 @@ async function fetchDeals(limit = 25) {
       return {
         id: index.toString(),
         title: p.title,
-        photoUrl: getPhotoUrl(p.thumbnail),
+        photoUrl: getPhotoUrl(p),
         price: price || 'Price not listed',
         originalPrice: originalPrice,
         externalUrl: p.url,
