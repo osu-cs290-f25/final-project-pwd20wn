@@ -138,6 +138,8 @@ function renderDeals(dealsToRender) {
     });
 }
 
+///////// The main functionallity of the filter system /////////
+// makes a copy from the DEALS_DATA
 function applyFilters() {
     if (typeof DEALS_DATA === 'undefined') {
         console.error("DEALS_DATA is not defined.");
@@ -214,7 +216,12 @@ function applyFilters() {
             return parseFloat(a.timeLeft || 999) - parseFloat(b.timeLeft || 999);
         });
     }
-
+    // renderDeals() created the UI
+    // Clears deal container
+    // If no deal is found, shows "No deals found" message
+    // Otherwise it loops through each deal and creates DOM elements
+    // Cards include: image, title, price, store, categor etc..
+    // Everythig is built using createElement()
     renderDeals(filteredDeals);
 }
 
@@ -267,6 +274,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     // Attatch Filter to all inputs
+    // Server reads deals.json & passes deals to index.ejs template
+    // Template embeds deals as DEALS_DATA JS variable
+    // Client-side JS reads DEALS_DATA
+    // Filers manipulate a copy of the data
+    // Results are rendered as HTML cards
     searchBar.addEventListener('input', applyFilters);
     searchButton.addEventListener('click', applyFilters);
     storeFilter.addEventListener('change', applyFilters);
