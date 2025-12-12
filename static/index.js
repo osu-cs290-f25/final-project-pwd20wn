@@ -267,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     // Attatch Filter to all inputs
+    searchBar.addEventListener('input', applyFilters);
     searchButton.addEventListener('click', applyFilters);
     storeFilter.addEventListener('change', applyFilters);
     categoryFilter.addEventListener('change', applyFilters);
